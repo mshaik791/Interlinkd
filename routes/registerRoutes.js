@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser") //to access body details
 const User = require("../schemas/UserSchema")
+const bcrypt = require("bcrypt"); //hash password
 
 app.set("view engine", "pug"); //using pug engine template
 app.set("views", "views")
@@ -41,7 +42,35 @@ router.post("/", async (req, res, next) => {
         //^asynchronous function meaning this will be running in the background and will take some time and code will proceed to run
         .catch((error) => {
             console.log(error);
-        }) 
+
+            payload.errorMessage = "Something went wrong.";
+            res.status(200).render("register", payload);
+        });
+
+        if(user == null){
+            //NO user is found
+            var data = req.body;
+
+            data.password = await bcrypt.hash(password, 10); //dont 2^10 time hashing, password secure
+            User.create(data)
+            .then((user) => {
+                req.session.user = user;
+                console.log(user);
+
+                return res.redirect("/");
+
+            })
+        }
+        else{
+            //User found
+            if(email == user.email){
+                payload.errorMessage = "Email already in use.";
+            }
+            else{
+                payload.errorMessage = "Username is already in use.";
+            }
+            res.status(200).render("register", payload);
+        }
 
        //console.log("hello"); 
        //this runs before the .then()
