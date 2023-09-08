@@ -25,6 +25,6 @@ $("#submitPostButton").click(() => {
 
     $.post("/api/posts", data, (postData, status, xhr) => {
         //xhr is status code
-        alert(postData)
+        console.log(postData)
     })
 })
