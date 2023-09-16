@@ -7,7 +7,11 @@ block content
 
             p.errorMessage #{errorMessage}
 
-            input#userName(type="text", name="logUsername", placeholder="Username or email", value=logUsername required="")
-            input#userName(type="password", name="logPassword", placeholder="Password", required="")
+            //- input#userName(type="text", name="logUsername", placeholder="Username or email", value=logUsername required="")
+            //- input#userName(type="password", name="logPassword", placeholder="Password", required="")
+
+            input#userName(type="text", name="logUsername", placeholder="Username or email", value="hamishaik" required="")
+            input#userName(type="password", name="logPassword", placeholder="Password", value="test" required="")
+            
             input(type="submit", value="Login")
         a(href="/register") Need an account? Register here. 
