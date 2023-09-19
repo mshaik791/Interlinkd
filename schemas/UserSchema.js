@@ -34,6 +34,12 @@ const UserSchema = new Schema({
         type: String,
         default: "/images/profilePic.png"
     },
+    likes: [{
+        type: Schema.Types.ObjectId, ref: 'Post'
+    }],
+    retweets: [{
+        type: Schema.Types.ObjectId, ref: 'Post'
+    }]
 
 }, {timestamps: true}); //timestamps to tell when a user created an account
 
